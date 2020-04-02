@@ -1,9 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <form action={%url 'login' %} method="post">
+    <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
-        <input type="text" name="phone_no" placeholder="Enter Your Phone Number">
-        <button name="next_button">Next</button>
+        {% comment %}Phone Number Adding Field {% endcomment %}
+        {% if not otp and not message%}
+            <input type="text" value="" name="phone_no" placeholder="Enter Your Phone Number">
+            <button name="next_button">Next</button>
+        {% endif %}
+        {% comment %} OTP Entering {% endcomment %}
+        {% if otp %}
+            <input type="text" value="{{otp}}" name="old_otp" hidden>
+            <input type="text" value="" name="otp" placeholder="Enter OTP">
+            <button name="otp_submit">Submit</button>
+        {% endif %}
+        {% comment %} Enter Username {% endcomment %}
+        {% if message and not otp %}
+            <input type="text" name="username" placeholder="Enter Username">
+            <button name="submit">Submit</button>
+        {% endif %}
     </form>
 {% endblock  %}
