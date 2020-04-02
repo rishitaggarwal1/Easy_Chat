@@ -4,20 +4,72 @@
     <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
         {% comment %}Phone Number Adding Field {% endcomment %}
-        {% if not otp and not message%}
-            <input type="text" value="" name="phone_no" placeholder="Enter Your Phone Number">
-            <button name="next_button">Next</button>
+        {% if not otp and not message%}  
+        <div class="container">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Enter Your Details</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Phone Number:</label>
+                        <input type="text" value="" class="form-control" name="phone_no" placeholder="Enter Your Phone Number">
+                        <small class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+                    </div>
+                    <button type="submit" name="next_button" class="btn btn-success float-right">Submit</button>
+                </div>
+            </div>
+        </div>
         {% endif %}
         {% comment %} OTP Entering {% endcomment %}
         {% if otp %}
-            <input type="text" value="{{otp}}" name="old_otp" hidden>
-            <input type="text" value="" name="otp" placeholder="Enter OTP">
-            <button name="otp_submit">Submit</button>
+        <div class="container">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Enter Your Details</h3>
+                </div>
+                <div class="card-body">
+                    <input type="text" value="{{otp}}" name="old_otp" hidden>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Phone Number:</label>
+                        <input type="text" value="{{phone}}" class="form-control" name="phone_no" placeholder="{{phone}}" readonly>
+                        <small class="form-text text-muted">We'll never share your phone number with anyone else.</small>
+                    </div>
+                    {% if wrong %}
+                    <div class="container text-center">
+                        <small class="text-center" style="color:red; font-weight:bold;">Wrong OTP!</small>
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">OTP:</label>
+                        <input type="text" value="" class="form-control" value="" name="otp" placeholder="Enter Your OTP">
+                    </div>
+                    <button type="submit" name="otp_submit" class="btn btn-success float-right">Submit</button>
+                </div>
+            </div>
+        </div>
         {% endif %}
         {% comment %} Enter Username {% endcomment %}
         {% if message and not otp %}
-            <input type="text" name="username" placeholder="Enter Username">
-            <button name="submit">Submit</button>
+        <div class="container">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Enter Your Details</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Username:</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">@</div>
+                            </div>
+                            <input type="text" name="username" class="form-control" placeholder="Enter your Username">
+                        </div>
+                    </div>
+                    <button type="submit" name="submit" class="btn btn-success float-right">Submit</button>
+                </div>
+            </div>
+        </div>
         {% endif %}
     </form>
 {% endblock  %}

@@ -13,9 +13,11 @@ def login(request):
     if request.method == "POST":
         if 'next_button' in request.POST and request.POST['phone_no']:
             otp = randint(11111, 99999)
+            phone = request.POST['phone_no']
             print(otp)
             return render(request, 'login.html', {
-                'otp': otp
+                'otp': otp,
+                'phone': phone
             })
         elif 'otp_submit' in request.POST and request.POST['otp']:
             if request.POST['old_otp'] == request.POST['otp']:
@@ -25,11 +27,15 @@ def login(request):
                 })
             else:
                 message = "Wrong OTP"
+                wrong = 1
                 otp = randint(11111, 99999)
                 print(otp)
+                phone = request.POST['phone_no']
                 return render(request, 'login.html', {
                     'message': message,
-                    'otp': otp
+                    'otp': otp,
+                    'phone': phone,
+                    'wrong': wrong
                 })
         elif 'submit' in request.POST and request.POST['username']:
             message = "Logged In as "+request.POST['username']
