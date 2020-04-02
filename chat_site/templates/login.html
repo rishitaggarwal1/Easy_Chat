@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <form action={%url 'login' %} method="post">
+    {% csrf_token %}
+        <input type="text" name="phone_no" placeholder="Enter Your Phone Number">
+        <button name="next_button">Next</button>
+    </form>
+{% endblock  %}
